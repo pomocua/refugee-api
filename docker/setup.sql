@@ -1,0 +1,6 @@
+CREATE USER refugee WITH PASSWORD 'refugee';
+CREATE DATABASE refugee WITH OWNER refugee ENCODING 'UTF8';
+
+\c refugee
+
+GRANT ALL PRIVILEGES ON DATABASE refugee TO refugee;

@@ -1,0 +1,12 @@
+version: '2.2'
+services:
+  currencystock-postgresql:
+    build: .
+    image: refugee-postgresql
+    container_name: refugee-postgresql
+    ports:
+      - 5432:5432
+    networks:
+      - refugee
+networks:
+  refugee:
