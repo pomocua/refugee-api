@@ -15,11 +15,6 @@ create table needs
     code varchar not null unique
 );
 
-create table refugee_procedure_status
-(
-    code varchar primary key
-);
-
 create table volunteers
 (
     id       uuid primary key,
@@ -47,9 +42,6 @@ CREATE TABLE refugees
     updated_at         timestamp with time zone not null,
     status             varchar default 'NEW'    not null,
     volunteer_id       uuid,
-    constraint refugees_refugee_procedure_status_fk
-        foreign key (status)
-            references refugee_procedure_status (code),
     constraint refugees_volunteers_fk
         foreign key (volunteer_id)
             references volunteers (id)

@@ -1,61 +1,26 @@
--- DROP TABLE IF EXISTS refugees;
--- DROP TABLE IF EXISTS volunteers;
--- DROP TABLE IF EXISTS languages;
--- DROP TABLE IF EXISTS needs;
--- DROP TABLE IF EXISTS refugee_procedure_status;
---
--- create table languages
--- (
---     id   uuid primary key,
---     code varchar not null unique
--- );
---
--- create table needs
--- (
---     id   uuid primary key,
---     code varchar not null unique
--- );
---
--- create table refugee_procedure_status
--- (
---     code varchar primary key
--- );
---
--- create table volunteers
--- (
---     id       uuid primary key,
---     fullName varchar not null,
---     contact  varchar not null
--- );
---
--- CREATE TABLE refugees
--- (
---     id                 uuid primary key,
---     full_name          varchar                  not null,
---     date_of_birth      date                     not null,
---     gender             varchar                  not null,
---     languages          text[]                   not null,
---     citizenship        varchar                  not null,
---     phone_number       varchar                  not null,
---     number_of_adults   integer                  not null,
---     number_of_children integer                  not null,
---     animals            boolean default false    not null,
---     current_location   varchar                  not null,
---     destination        varchar,
---     needs              text[]                   not null,
---     description        varchar,
---     created_at         timestamp with time zone not null,
---     updated_at         timestamp with time zone not null,
---     status             varchar default 'NEW'    not null,
---     volunteer_id       uuid,
---     constraint refugees_refugee_procedure_status_fk
---         foreign key (status)
---             references refugee_procedure_status (code),
---     constraint refugees_volunteers_fk
---         foreign key (volunteer_id)
---             references volunteers (id)
--- );
--- ALTER TABLE refugees
---     ALTER COLUMN languages SET DEFAULT array []::varchar[];
--- ALTER TABLE refugees
---     ALTER COLUMN needs SET DEFAULT array []::varchar[];
+insert into languages (id, code)
+values ('0e6c7393-67a2-45d6-96c8-d01f510fc622', 'ua'),
+       ('71567f10-365f-408b-8c23-cce34f2e9b33', 'en'),
+       ('0e6c7393-67a2-45d6-96c8-d01f510fc644', 'pl'),
+       ('0e6c7393-67a2-45d6-96c8-d01f510fc655', 'ru');
+
+insert into needs (id, code)
+values ('0e6c7393-67a2-45d6-96c8-d01f510fc6f7', 'TRANSPORT'),
+       ('71567f10-365f-408b-8c23-cce34f2e9b81', 'ACCOMMODATION');
+
+insert into volunteers(id, fullname, contact)
+values ('1991b1e0-e3e7-4185-9a24-496d61aa7fa2', 'Jan Kowalski', '+48000000000');
+
+insert into refugees
+(id, full_name, date_of_birth, gender,
+ languages, citizenship, phone_number,
+ number_of_adults, number_of_children, animals,
+ current_location, destination, needs,
+ description, created_at, updated_at,
+ status, volunteer_id)
+values ('b2cce6e4-413b-406a-901a-5ca9c2ce950b', 'Iwan Iwanowich Iwanow', '1980-01-01', 'men',
+        '{"ua"}', 'UA', '+48000000001',
+        2, 1, true,
+        'Przemysl', 'Warsaw', '{"0e6c7393-67a2-45d6-96c8-d01f510fc6f7"}',
+        'lorem ipsum', timestamp '2022-02-01 15:00:00', now(),
+        'NEW', '1991b1e0-e3e7-4185-9a24-496d61aa7fa2');
