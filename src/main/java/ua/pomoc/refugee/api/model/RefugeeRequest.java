@@ -1,15 +1,14 @@
-package ua.pomoc.refugee.domain.model;
+package ua.pomoc.refugee.api.model;
 
 import lombok.Value;
+import ua.pomoc.refugee.domain.model.Need;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Value
-public class Refugee {
-    UUID id;
+public class RefugeeRequest {
     String fullName;
     LocalDate dateOfBirth;
     String gender;
@@ -18,9 +17,9 @@ public class Refugee {
     String phoneNumber;
     int numberOfAdults;
     int numberOfChildren;
-    boolean animals;
+    boolean hasAnimals;
     String currentLocation;
-    String destination;
-    List<String> needs = new ArrayList<>();
+    String targetLocation;
+    List<Need> needs = new ArrayList<>();
     String description;
 }

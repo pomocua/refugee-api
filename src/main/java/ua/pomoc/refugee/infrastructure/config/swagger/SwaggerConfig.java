@@ -1,4 +1,4 @@
-package ua.pomoc.refugee.swagger;
+package ua.pomoc.refugee.infrastructure.config.swagger;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Validated
 @Configuration
-class SwaggerConfig {
+public class SwaggerConfig {
 
     private final SwaggerSettings swaggerSettings;
 

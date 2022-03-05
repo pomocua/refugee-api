@@ -1,9 +1,8 @@
-package ua.pomoc.refugee.swagger;
+package ua.pomoc.refugee.infrastructure.config.swagger;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 @Validated
 @Configuration
 @ConfigurationProperties(prefix = "swagger")
-class SwaggerSettings {
+public class SwaggerSettings {
 
     @NotBlank
     private String host;

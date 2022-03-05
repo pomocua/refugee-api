@@ -1,4 +1,4 @@
-package ua.pomoc.refugee.config;
+package ua.pomoc.refugee.infrastructure.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.HandlerTypePredicate;
