@@ -20,6 +20,6 @@ public class RefugeeRequest {
     boolean hasAnimals;
     String currentLocation;
     String targetLocation;
-    List<Need> needs = new ArrayList<>();
+    List<String> needs = new ArrayList<>();
     String description;
 }

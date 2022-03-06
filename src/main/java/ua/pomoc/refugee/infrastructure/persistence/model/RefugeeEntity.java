@@ -1,14 +1,11 @@
 package ua.pomoc.refugee.infrastructure.persistence.model;
 
-import com.neovisionaries.i18n.CountryCode;
-import com.neovisionaries.i18n.LanguageCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ua.pomoc.refugee.domain.model.Need;
 import ua.pomoc.refugee.domain.model.RefugeeProcedureStatus;
 
 import javax.persistence.CascadeType;
@@ -18,13 +15,15 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -53,14 +52,13 @@ public class RefugeeEntity extends AuditableEntity {
     private String gender;
 
     @Column(name = "code", nullable = false)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "languages", joinColumns = @JoinColumn(name = "id"))
-    @ElementCollection(targetClass = LanguageCode.class)
-    private List<LanguageCode> languages;
+    @CollectionTable(name = "refugee_languages", joinColumns = @JoinColumn(name = "refugee_id"))
+    @ElementCollection
+    private List<String> languages;
 
-    @Column(name = "citizenship", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private CountryCode citizenship;
+    @JoinColumn(name = "citizenship", referencedColumnName = "country_code", nullable = false)
+    @OneToOne(fetch = FetchType.EAGER)
+    private CitizenshipEntity citizenship;
 
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
@@ -80,11 +78,15 @@ public class RefugeeEntity extends AuditableEntity {
     @Column(name = "target_location")
     private String targetLocation;
 
-    @Column(name = "code", nullable = false)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "needs", joinColumns = @JoinColumn(name = "id"))
-    @ElementCollection(targetClass = Need.class)
-    private List<Need> needs;
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "refugee_need",
+            joinColumns = @JoinColumn(name = "refugee_id"),
+            inverseJoinColumns = @JoinColumn(name = "need_id")
+    )
+    private List<NeedEntity> needs;
 
     @Column(name = "description")
     private String description;

@@ -1,38 +1,35 @@
-package ua.pomoc.refugee.domain.model;
+package ua.pomoc.refugee.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Value;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 @Value
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Builder(toBuilder = true, builderMethodName = "internalBuilder")
-public class Refugee {
+public class RefugeeResponse {
     UUID id;
     String fullName;
     LocalDate dateOfBirth;
     String gender;
-    List<Language> languages;
-    Citizenship citizenship;
+    List<String> languages;
+    String citizenship;
     String phoneNumber;
     int numberOfAdults;
     int numberOfChildren;
-    boolean hasAnimals;
+    boolean animals;
     String currentLocation;
     String destinationLocation;
-    List<Need> needs;
+    List<String> needs;
     String description;
     Instant createdAt;
     Instant updatedAt;
 
-    public static Refugee.RefugeeBuilder builder(UUID id, String fullName) {
+    public static RefugeeResponse.RefugeeResponseBuilder builder(UUID id, String fullName) {
         return internalBuilder().id(id).fullName(fullName);
-    }
-
-    public boolean hasAnimals() {
-        return hasAnimals;
     }
 }
