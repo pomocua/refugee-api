@@ -19,4 +19,4 @@ jobs:
         run: chmod +x gradlew
       - name: Build
         if: github.ref == 'refs/heads/main'
-        run: ./gradlew build -x test --parallel
+        run: ./gradlew jib -x test --parallel
