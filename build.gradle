@@ -93,8 +93,12 @@ jib {
         image = "gcr.io/distroless/java17-debian11"
     }
     to {
-        image = "ua/refugee" // todo vk: clarify naming
+        image = "740093168300.dkr.ecr.eu-central-1.amazonaws.com/refugee" // todo vk: add to secrets
         tags = ["$version", "latest"]
+        auth {
+            username = "arn:aws:iam::740093168300:user/Vadim"
+            password = "520iPs48hJMnuF2h8jil7Vlu9ITBn5yD9GzsteHz"
+        }
     }
     container {
         jvmFlags = ["-Xss256k",

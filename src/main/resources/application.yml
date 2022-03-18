@@ -19,7 +19,6 @@ spring:
   application:
     name: refugee
     main:
-      lazy-initialization: true
       banner-mode: off
     jackson:
       time-zone: UTC
@@ -38,26 +37,12 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: refugee
     password: refugee
-    hikari:
-      minimumIdle: 4
-      maximumPoolSize: 10
-      connection-timeout: 35000
-      pool-name: "refugee-hikari-pool"
-      idle-timeout: 10000
-      max-lifetime: 30000
-      auto-commit: true
-  data:
-    jpa:
-      repositories:
-        bootstrap-mode: deferred
   jpa:
-    open-in-view: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         temp.use_jdbc_metadata_defaults: false
-        format_sql: false
-        hbm2ddl.auto: update
+        format_sql: true
     show-sql: true
     hibernate:
       ddl-auto: validate
