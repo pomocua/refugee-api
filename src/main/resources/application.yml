@@ -1,4 +1,38 @@
+server:
+  port: 8080
+  shutdown: graceful
+  undertow:
+    threads:
+      worker: 16
+      io: 2
+  servlet:
+    session:
+      timeout: 60m
+      cookie:
+        http-only: true
+    application-display-name: refugee
+  error:
+    whitelabel:
+      enabled: false
+
 spring:
+  application:
+    name: refugee
+    main:
+      lazy-initialization: true
+      banner-mode: off
+    jackson:
+      time-zone: UTC
+      locale: en_US
+    mvc:
+      format:
+        date: iso
+        date-time: iso
+    lifecycle:
+      timeout-per-shutdown-phase: 30s
+  error:
+    whitelabel:
+      enabled: false
   datasource:
     url: jdbc:postgresql://localhost:5432/refugee
     driver-class-name: org.postgresql.Driver
@@ -25,13 +59,35 @@ swagger:
   description: RefugeeApi
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+    db:
+      enabled: true
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+      show-components: never
+      show-details: never
+      group:
+        readiness:
+          include: readinessState, db
+    metrics.enabled: true
+    prometheus.enabled: true
+  endpoints.web.exposure.include: "*"
+  metrics.export.prometheus.enabled: true
 
 springdoc:
   packagesToScan: ua.pomoc.refugee.api
   pathsToMatch: /**
   swagger-ui:
     enabled: true
+
+logging.level:
+  ROOT: info
+  ua.pomoc.refugee: info
+  org.springframework: info
