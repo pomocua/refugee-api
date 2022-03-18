@@ -51,14 +51,16 @@ ext {
 
 dependencies {
     //region spring
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    implementation("org.springframework.boot:spring-boot-starter-undertow")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
-    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springdoc:springdoc-openapi-ui:${openUiVersion}")
     implementation("org.springframework:spring-context-indexer")
     annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
-    developmentOnly ("org.springframework.boot:spring-boot-devtools")
     //endregion
 
     //region validation
@@ -79,14 +81,6 @@ dependencies {
     //region lombok
     compileOnly ("org.projectlombok:lombok")
     annotationProcessor ("org.projectlombok:lombok")
-    //endregion
-
-    //region test
-    testImplementation ("org.springframework.boot:spring-boot-starter-test")
-    //endregion
-
-    //region monitoring
-    implementation("io.micrometer:micrometer-registry-prometheus")
     //endregion
 
     //region 3rd party libs

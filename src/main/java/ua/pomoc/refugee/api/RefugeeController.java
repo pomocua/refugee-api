@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/refugees")
+@RequestMapping("/api/refugees")
 @Slf4j
 @RequiredArgsConstructor
 public class RefugeeController {

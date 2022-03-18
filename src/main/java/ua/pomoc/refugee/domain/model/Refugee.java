@@ -3,6 +3,8 @@ package ua.pomoc.refugee.domain.model;
 import lombok.Builder;
 import lombok.Value;
 
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;

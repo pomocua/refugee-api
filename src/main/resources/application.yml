@@ -3,8 +3,8 @@ server:
   shutdown: graceful
   undertow:
     threads:
-      worker: 16
-      io: 2
+      worker: 24
+      io: 3
   servlet:
     session:
       timeout: 60m
@@ -38,12 +38,26 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: refugee
     password: refugee
+    hikari:
+      minimumIdle: 4
+      maximumPoolSize: 10
+      connection-timeout: 35000
+      pool-name: "refugee-hikari-pool"
+      idle-timeout: 10000
+      max-lifetime: 30000
+      auto-commit: true
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
   jpa:
+    open-in-view: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         temp.use_jdbc_metadata_defaults: false
-        format_sql: true
+        format_sql: false
+        hbm2ddl.auto: update
     show-sql: true
     hibernate:
       ddl-auto: validate
@@ -76,10 +90,7 @@ management:
       group:
         readiness:
           include: readinessState, db
-    metrics.enabled: true
-    prometheus.enabled: true
   endpoints.web.exposure.include: "*"
-  metrics.export.prometheus.enabled: true
 
 springdoc:
   packagesToScan: ua.pomoc.refugee.api
