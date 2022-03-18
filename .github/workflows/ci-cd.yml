@@ -15,7 +15,8 @@ jobs:
           java-version: 17
           distribution: 'adopt'
           architecture: x64
+      - name: Preparation
+        run: chmod +x gradlew
       - name: Build
         if: github.ref == 'refs/heads/main'
-        run: chmod +x gradlew &&\
-          ./gradlew clean jib -x test
+        run: ./gradlew jib -x test --parallel
